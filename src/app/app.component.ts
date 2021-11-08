@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class AppComponent implements OnInit {
 
   genders = ['male', 'female'];
-  signupForm: FormGroup; //this property hold our form
+  signupForm: FormGroup; //this property hold our form (FormGroup makes up the form)
 
   ngOnInit() { //I'll initializa my form here:
     this.signupForm = new FormGroup({
@@ -18,6 +18,10 @@ export class AppComponent implements OnInit {
       'email' : new FormControl(null),
       'gender' : new FormControl('female')
     });
+  }
+
+  onSubmit() { //now we have access to our form, we create it by ourselves
+    console.log("Submitted!", this.signupForm);
   }
 
 }
