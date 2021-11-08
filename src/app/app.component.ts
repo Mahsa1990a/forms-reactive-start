@@ -14,8 +14,12 @@ export class AppComponent implements OnInit {
   ngOnInit() { //I'll initializa my form here:
     this.signupForm = new FormGroup({
       // controls are key-value pairs
-      'username': new FormControl(null, Validators.required),// how you should required instead of passing it in template
-      'email' : new FormControl(null, [Validators.required, Validators.email]), //pass with [] for more validates
+      'userData': new FormGroup({ //to group
+        'username': new FormControl(null, Validators.required),// how you should required instead of passing it in template
+        'email' : new FormControl(null, [Validators.required, Validators.email]), //pass with [] for more validates
+      }),
+      // 'username': new FormControl(null, Validators.required),// how you should required instead of passing it in template
+      // 'email' : new FormControl(null, [Validators.required, Validators.email]), //pass with [] for more validates
       'gender' : new FormControl('female')
     });
   }
