@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +14,8 @@ export class AppComponent implements OnInit {
   ngOnInit() { //I'll initializa my form here:
     this.signupForm = new FormGroup({
       // controls are key-value pairs
-      'username': new FormControl(null),
-      'email' : new FormControl(null),
+      'username': new FormControl(null, Validators.required),// how you should required instead of passing it in template
+      'email' : new FormControl(null, [Validators.required, Validators.email]), //pass with [] for more validates
       'gender' : new FormControl('female')
     });
   }
