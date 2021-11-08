@@ -18,6 +18,7 @@
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
+            <!-- [value]="gender": property binding -->
             <input
               type="radio"
               [value]="gender">{{ gender }}
