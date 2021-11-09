@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
       // controls are key-value pairs
       'userData': new FormGroup({ //to group
         'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),// how you should required instead of passing it in template
-        'email' : new FormControl(null, [Validators.required, Validators.email]), //pass with [] for more validates
+        //                               pass with [] for more validates
+        'email' : new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails),
       }),
       // 'username': new FormControl(null, Validators.required),// how you should required instead of passing it in template
       // 'email' : new FormControl(null, [Validators.required, Validators.email]), //pass with [] for more validates
@@ -49,4 +51,18 @@ export class AppComponent implements OnInit {
     }
     return null;
   }
+
+  // Create async validators:
+  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+          resolve({'emailIsForbidden': true});
+        } else {
+          resolve(null)
+        }
+      }, 1500);
+    });
+    return promise;
+  } //after creation, we should add it to line22
 }
