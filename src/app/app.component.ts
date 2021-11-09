@@ -10,12 +10,14 @@ export class AppComponent implements OnInit {
 
   genders = ['male', 'female'];
   signupForm: FormGroup; //this property hold our form (FormGroup makes up the form)
+  forbiddenUsernames = ['Chris', 'Anna'];//for creating my own validator
+
 
   ngOnInit() { //I'll initializa my form here:
     this.signupForm = new FormGroup({
       // controls are key-value pairs
       'userData': new FormGroup({ //to group
-        'username': new FormControl(null, Validators.required),// how you should required instead of passing it in template
+        'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),// how you should required instead of passing it in template
         'email' : new FormControl(null, [Validators.required, Validators.email]), //pass with [] for more validates
       }),
       // 'username': new FormControl(null, Validators.required),// how you should required instead of passing it in template
@@ -38,5 +40,13 @@ export class AppComponent implements OnInit {
 
   getControls() {
     return (<FormArray>this.signupForm.get('hobbies')).controls;
+  }
+
+  //for creating my own validator:
+  forbiddenNames(control: FormControl): {[s: string]: boolean} {
+    if (this.forbiddenUsernames.indexOf(control.value) !== -1) {
+      return { 'nameIsForbidden': true };
+    }
+    return null;
   }
 }
