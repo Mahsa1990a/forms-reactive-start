@@ -28,6 +28,15 @@ export class AppComponent implements OnInit {
       // FormArray: holds an arr of controls
       'hobbies': new FormArray([])
     });
+
+    // Reacting to Status or Value Changes:
+    // valueChanges is observable so we can suscribe to it
+    // this.signupForm.valueChanges.subscribe(
+    //   (value) => console.log("VALUE:", value)
+    // )
+    this.signupForm.statusChanges.subscribe(
+      (status) => console.log("STATUS:", status)
+    )
   }
 
   onSubmit() { //now we have access to our form, we create it by ourselves
