@@ -30,17 +30,40 @@ export class AppComponent implements OnInit {
     });
 
     // Reacting to Status or Value Changes:
-    // valueChanges is observable so we can suscribe to it
-    // this.signupForm.valueChanges.subscribe(
+    // this.signupForm.valueChanges.subscribe( // valueChanges is hook observable so we can suscribe to it
     //   (value) => console.log("VALUE:", value)
     // )
     this.signupForm.statusChanges.subscribe(
       (status) => console.log("STATUS:", status)
     )
+
+    // Setting and Patching Values:
+      // this.signupForm.setValue({ //update whole
+      //   'userData': {
+      //     'username': 'Mahsa',
+      //     'email': 'ameri@test.com'
+      //   },
+      //   'gender': 'female',
+      //   'hobbies': []
+      // });
+      this.signupForm.patchValue({ //update specific part
+        'userData': {
+          'email': 'ameri@test.com'
+        }
+      });
   }
 
   onSubmit() { //now we have access to our form, we create it by ourselves
     console.log("Submitted!", this.signupForm);
+    // this.signupForm.reset(); //to reset the form  OR:
+    this.signupForm.reset({ //reset specific parts
+      'userData': {
+        'username': '',
+        'email': ''
+      },
+      'gender': 'female',
+      'hobbies': []
+    });
   }
 
   onAddHobby() {
